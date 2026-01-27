@@ -1,0 +1,5 @@
+<h1>トップ</h1>
+
+<p>ログイン中: <%= current_user.username %></p>
+
+<%= button_to "ログアウト", logout_path, method: :delete %>
