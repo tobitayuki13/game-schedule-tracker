@@ -1,0 +1,9 @@
+<h1>ルーティン一覧</h1>
+
+<p><%= link_to "新規作成", new_routine_path %></p>
+
+<ul>
+  <% @routines.each do |routine| %>
+    <li><%= link_to routine.name, routine_path(routine) %></li>
+  <% end %>
+</ul>

@@ -1,0 +1,27 @@
+<h1><%= @routine.name %></h1>
+
+<h2>タスク一覧</h2>
+<ul>
+  <% @tasks.each do |task| %>
+    <li><%= task.position %>. <%= task.name %></li>
+  <% end %>
+</ul>
+
+<h2>タスク追加</h2>
+<%= form_with model: [@routine, @task] do |f| %>
+  <div>
+    <%= f.label :name, "タスク名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :position, "順番" %><br>
+    <%= f.number_field :position %>
+  </div>
+
+  <div>
+    <%= f.submit "追加" %>
+  </div>
+<% end %>
+
+<p><%= link_to "一覧へ戻る", routines_path %></p>

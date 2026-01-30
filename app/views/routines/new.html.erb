@@ -1,0 +1,14 @@
+<h1>ルーティン新規作成</h1>
+
+<%= form_with model: @routine do |f| %>
+  <div>
+    <%= f.label :name, "ルーティン名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.submit "作成" %>
+  </div>
+<% end %>
+
+<p><%= link_to "一覧へ戻る", routines_path %></p>
