@@ -25,6 +25,17 @@ class RoutinesController < ApplicationController
     @task = @routine.tasks.new
   end
 
+  def execute
+    @routine = current_user.routines.find(params[:id])
+    @task = @routine.tasks.where(status: [:not_started, :in_progress]).order(:position, :id).first
+  end
+
+  def reset
+    routine = current_user.routines.find(params[:id])
+    routine.tasks.update_all(status: Task.statuses[:not_started])
+    redirect_to routine_path(routine), notice: "リセットしました"
+  end
+
   private
 
   def routine_params

@@ -8,6 +8,13 @@ Rails.application.routes.draw do
 
   resources :routines, only: [:index, :new, :create, :show] do
     resources :tasks, only: [:create]
+    get :execute, on: :member
+    patch :reset, on: :member
+  end
+
+  resources :tasks, only: [] do
+    patch :start, on: :member
+    patch :finish, on: :member
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

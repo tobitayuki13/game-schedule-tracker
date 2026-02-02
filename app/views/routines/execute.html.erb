@@ -1,0 +1,15 @@
+<h1><%= @routine.name %> 実行</h1>
+
+<% if @task.present? %>
+  <p>次のタスク</p>
+  <h2><%= @task.position %>. <%= @task.name %></h2>
+
+  <% if @task.not_started? %>
+    <%= button_to "開始", start_task_path(@task), method: :patch %>
+  <% elsif @task.in_progress? %>
+    <%= button_to "終了", finish_task_path(@task), method: :patch %>
+  <% end %>
+<% else %>
+  <p>すべて完了しました</p>
+  <%= link_to "ルーティン詳細へ戻る", routine_path(@routine) %>
+<% end %>
