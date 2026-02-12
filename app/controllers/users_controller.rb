@@ -7,11 +7,13 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to login_path, notice: "登録しました。ログインしてください。"
+      session[:user_id] = @user.id
+      redirect_to routines_path, notice: "登録しました"
     else
       render :new, status: :unprocessable_entity
     end
   end
+
 
   private
 

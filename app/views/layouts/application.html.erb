@@ -9,6 +9,13 @@
 
     <%= yield :head %>
 
+    <meta property="og:title" content="Game Schedule Tracker">
+    <meta property="og:description" content="ルーティンとタスクを管理して、実行までできるアプリです。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:image" content="<%= image_url('ogp.png') %>">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
