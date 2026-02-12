@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   
   get  "/signup", to: "users#new"
   post "/signup", to: "users#create"
+
+  get "/terms", to: "static_pages#terms"
+  get "/privacy", to: "static_pages#privacy"
   
   # トップページ(仮)
   root "home#index"
