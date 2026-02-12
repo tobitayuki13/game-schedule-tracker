@@ -12,6 +12,10 @@
 
       <%= link_to "一覧へ戻る", routines_path,
         class: "inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50" %>
+      <%= button_to "削除", routine_path(@routine), method: :delete,
+        form_class: "inline",
+        class: "inline-flex items-center rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50",
+        data: { turbo_confirm: "このルーティンを削除します。よろしいですか？" } %>
     </div>
   </div>
 

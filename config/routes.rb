@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # トップページ(仮)
   root "home#index"
 
-  resources :routines, only: [:index, :new, :create, :show] do
+  resources :routines, only: [:index, :new, :create, :show, :destroy] do
     resources :tasks, only: [:create]
     get :execute, on: :member
     patch :reset, on: :member

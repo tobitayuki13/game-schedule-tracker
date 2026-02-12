@@ -36,6 +36,12 @@ class RoutinesController < ApplicationController
     redirect_to routine_path(routine), notice: "リセットしました"
   end
 
+  def destroy
+    routine = current_user.routines.find(params[:id])
+    routine.destroy
+    redirect_to routines_path, notice: "ルーティンを削除しました"
+  end
+
   private
 
   def routine_params
