@@ -1,6 +1,6 @@
 <h1>ルーティン新規作成</h1>
 
-<%= form_with model: @routine do |f| %>
+<%= form_with url: login_path, method: :post, class: "space-y-5", data: { turbo: false } do |f| %>
   <div>
     <%= f.label :name, "ルーティン名" %><br>
     <%= f.text_field :name %>

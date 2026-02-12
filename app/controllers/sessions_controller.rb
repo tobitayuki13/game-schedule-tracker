@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout "auth", only: [:new]
+
   def new
   end
 
@@ -7,7 +9,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to routines_path
+      redirect_to routines_path, status: :see_other
     else
       flash.now[:alert] = "メールアドレスかパスワードが間違っています"
       render :new, status: :unprocessable_entity

@@ -1,33 +1,81 @@
-<h1><%= @routine.name %></h1>
+<div class="space-y-6">
+  <!-- 上部：タイトルと操作 -->
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight"><%= @routine.name %></h1>
+      <p class="mt-2 text-sm text-slate-600">タスクの順番を確認・追加できます。</p>
+    </div>
 
-<h2>タスク一覧</h2>
-<ul>
-  <% @tasks.each do |task| %>
-    <li>
-      <%= task.position %>. <%= task.name %>
-    </li>
-  <% end %>
-</ul>
+    <div class="flex flex-wrap gap-2">
+      <%= link_to "実行する", execute_routine_path(@routine),
+        class: "inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800" %>
 
-<h2>タスク追加</h2>
-<%= form_with model: [@routine, @task] do |f| %>
-  <div>
-    <%= f.label :name, "タスク名" %><br>
-    <%= f.text_field :name %>
+      <%= link_to "一覧へ戻る", routines_path,
+        class: "inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50" %>
+    </div>
   </div>
 
-  <div>
-    <%= f.label :position, "順番" %><br>
-    <%= f.number_field :position %>
+  <!-- タスク一覧 -->
+  <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-semibold">タスク一覧</h2>
+      <div class="text-sm text-slate-600"><%= @tasks.size %>件</div>
+    </div>
+
+    <% if @tasks.any? %>
+      <div class="mt-4 divide-y divide-slate-100">
+        <% @tasks.each do |task| %>
+          <div class="flex items-center justify-between py-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-700">
+                <%= task.position %>
+              </span>
+              <span class="text-slate-900"><%= task.name %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="mt-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600">
+        まだタスクがありません。
+      </div>
+    <% end %>
   </div>
 
-  <div>
-    <%= f.submit "追加" %>
+  <!-- タスク追加フォーム -->
+  <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h2 class="text-lg font-semibold">タスク追加</h2>
+
+    <%= form_with model: [@routine, @task], class: "mt-4 space-y-5" do |f| %>
+      <div>
+        <%= f.label :name, "タスク名", class: "mb-1 block text-sm font-medium text-slate-700" %>
+        <%= f.text_field :name,
+          class: "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-slate-900 focus:outline-none" %>
+      </div>
+
+      <div>
+        <%= f.label :position, "順番", class: "mb-1 block text-sm font-medium text-slate-700" %>
+        <%= f.number_field :position,
+          class: "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-slate-900 focus:outline-none" %>
+        <p class="mt-2 text-xs text-slate-500">同じ順番がある場合の挙動は、今の仕様どおりです。</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <%= f.submit "追加",
+          class: "inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
 
-<p><%= link_to "一覧へ戻る", routines_path %></p>
+  <!-- 危険操作 -->
+  <div class="rounded-2xl border border-red-200 bg-white p-6 shadow-sm">
+    <h2 class="text-lg font-semibold text-red-700">リセット</h2>
+    <p class="mt-2 text-sm text-slate-600">このルーティンの進行状態を初期化します。</p>
 
-<p><%= link_to "このルーティンを実行する", execute_routine_path(@routine) %></p>
-
-<%= button_to "このルーティンをリセット", reset_routine_path(@routine), method: :patch %>
+    <div class="mt-4">
+      <%= button_to "このルーティンをリセット", reset_routine_path(@routine), method: :patch,
+        class: "inline-flex items-center rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50",
+        data: { turbo_confirm: "リセットします。よろしいですか？" } %>
+    </div>
+  </div>
+</div>
