@@ -27,7 +27,7 @@ class RoutinesController < ApplicationController
 
   def execute
     @routine = current_user.routines.find(params[:id])
-    @task = @routine.tasks.where(status: [:not_started, :in_progress]).order(:position, :id).first
+    @task = @routine.tasks.where(status: [ :not_started, :in_progress ]).order(:position, :id).first
   end
 
   def reset

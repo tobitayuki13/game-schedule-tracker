@@ -3,18 +3,18 @@ Rails.application.routes.draw do
   post   "/login",  to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  
+
   get  "/signup", to: "users#new"
   post "/signup", to: "users#create"
 
   get "/terms", to: "static_pages#terms"
   get "/privacy", to: "static_pages#privacy"
-  
+
   # トップページ(仮)
   root "home#index"
 
-  resources :routines, only: [:index, :new, :create, :show, :destroy] do
-    resources :tasks, only: [:create]
+  resources :routines, only: [ :index, :new, :create, :show, :destroy ] do
+    resources :tasks, only: [ :create ]
     get :execute, on: :member
     patch :reset, on: :member
   end

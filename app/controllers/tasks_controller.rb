@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :require_login
-  before_action :set_task, only: [:start, :finish, :reset]
+  before_action :set_task, only: [ :start, :finish, :reset ]
 
   def create
     routine = current_user.routines.find(params[:routine_id])
